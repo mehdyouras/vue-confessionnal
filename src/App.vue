@@ -1,7 +1,17 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <b-container>
+      <b-card
+        bg-variant="dark"
+        class="my-4"
+      >
+        <img 
+          src="./assets/img/logo-white.svg" 
+          alt="EKM's Confessionnal"
+        >
+      </b-card>
+      <router-view/>
+    </b-container>
   </div>
 </template>
 
@@ -11,13 +21,3 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
