@@ -1,11 +1,12 @@
 <template>
-  <b-form>
+  <b-form @submit.prevent="addPost">
     <b-form-group 
       label="Votre confession"
       label-for="conf-content"
     >
       <b-form-textarea
         id="conf-content"
+        v-model="content"
         type="text"
         required
       />
@@ -33,7 +34,18 @@
 
 <script>
 export default {
-  name: 'AddPost'
+  name: 'AddPost',
+  data() {
+    return {
+      content: "",
+      file: null,
+    }
+  },
+  methods: {
+    addPost() {
+      console.log('addPost')
+    }
+  }
 }
 </script>
 

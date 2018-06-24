@@ -6,11 +6,11 @@
         md="6"
       >
         <b-jumbotron
-          header="Dehaan"
-          lead="34 confessions"
+          :header="group.name"
+          :lead="group.posts.length + ' confessions'"
         >
           <b-card class="mb-4">
-            <share />
+            <share :group-id="group.id" />
           </b-card>
           <b-card header="<h3>Ajouter une confession</h3>">
             <add-post />  
@@ -25,7 +25,7 @@
           no-body 
           header="<strong>Les dernières confessions</strong>"
         >
-          <posts />
+          <posts :posts="group.posts" />
         </b-card>
       </b-col>
     </b-row>
@@ -37,12 +37,34 @@ import Posts from '@/components/confessionnal/Posts';
 import Share from '@/components/confessionnal/Share';
 import AddPost from '@/components/confessionnal/AddPost';
 
+import GROUP from '@/apollo/queries/group.gql';
+
 export default {
   name: 'PageConfessionnal',
   components: {
     Posts,
     Share,
     AddPost
+  },
+  data() {
+    return {
+      group: {},
+    }
+  },
+  computed: {
+    groupId() {
+      return this.$route.params.id;
+    }
+  },
+  apollo: {
+    group: {
+      query: GROUP,
+      variables() {
+        return {
+          id: this.groupId,
+        }
+      }
+    }
   }
 }
 </script>

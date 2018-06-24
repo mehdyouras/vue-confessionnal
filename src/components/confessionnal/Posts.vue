@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <b-list-group flush>
     <b-list-group-item 
-      v-for="i in 34"
-      :key="i"
+      v-for="(post, index) in posts"
+      :key="post.id"
       class="d-flex align-items-center"
     >
       <p>
@@ -10,16 +10,22 @@
           class="mr-4"
           variant="primary"
         >
-          #{{ i }}
+          #{{ index + 1 }}
         </b-badge>
-        Cras justo odio {{ i }}
+        {{ post.content }}
       </p>
     </b-list-group-item>
-  </div>
+  </b-list-group>
 </template>
 
 <script>
 export default {
-  name: 'Posts'
+  name: 'Posts',
+  props: {
+    posts: {
+      type: Array,
+      required: true,
+    }
+  }
 }
 </script>
