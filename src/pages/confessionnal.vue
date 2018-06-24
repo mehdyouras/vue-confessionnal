@@ -73,7 +73,7 @@ export default {
         },
         updateQuery: (previousResult, { subscriptionData }) => {
           let newResult = JSON.parse(JSON.stringify(previousResult));
-          let newPosts = [subscriptionData.data.post.node, ...previousResult.group.posts];
+          let newPosts = [...previousResult.group.posts, subscriptionData.data.post.node];
 
           newResult.group.posts = newPosts; 
           
