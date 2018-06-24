@@ -5,8 +5,9 @@ export default gql`
     group(where: { id: $id }) {
       id
       name
-      posts {
+      posts(orderBy: createdAt_ASC) {
         id
+        createdAt
         content
       }
     }

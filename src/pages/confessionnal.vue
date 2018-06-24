@@ -13,7 +13,7 @@
             <share :group-id="group.id" />
           </b-card>
           <b-card header="<h3>Ajouter une confession</h3>">
-            <add-post />  
+            <add-post :group-id="group.id" />  
           </b-card>
         </b-jumbotron>
       </b-col>
@@ -24,6 +24,7 @@
         <b-card 
           no-body 
           header="<strong>Les dernières confessions</strong>"
+          class="mb-4"
         >
           <posts :posts="group.posts" />
         </b-card>
@@ -38,6 +39,7 @@ import Share from '@/components/confessionnal/Share';
 import AddPost from '@/components/confessionnal/AddPost';
 
 import GROUP from '@/apollo/queries/group.gql';
+import SUBSCRIPTION_POSTS from '@/apollo/subscriptions/posts.gql'
 
 export default {
   name: 'PageConfessionnal',
@@ -48,7 +50,10 @@ export default {
   },
   data() {
     return {
-      group: {},
+      group: {
+        id: "",
+        posts: [],
+      },
     }
   },
   computed: {
@@ -59,6 +64,22 @@ export default {
   apollo: {
     group: {
       query: GROUP,
+      subscribeToMore: {
+        document: SUBSCRIPTION_POSTS,
+        variables() {
+          return {
+            groupId: this.groupId,
+          }
+        },
+        updateQuery: (previousResult, { subscriptionData }) => {
+          let newResult = JSON.parse(JSON.stringify(previousResult));
+          let newPosts = [subscriptionData.data.post.node, ...previousResult.group.posts];
+
+          newResult.group.posts = newPosts; 
+          
+          return newResult;
+        },
+      },
       variables() {
         return {
           id: this.groupId,

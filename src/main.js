@@ -3,7 +3,10 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-import { VueApollo, apolloClient } from './plugins/vue-apollo';
+
+import apolloClient from './plugins/vue-apollo';
+import VueApollo from 'vue-apollo'
+
 import BootstrapVue from './plugins/bootstrap-vue';
 
 Vue.use(VueApollo);
