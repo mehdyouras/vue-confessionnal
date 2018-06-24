@@ -1,0 +1,25 @@
+type User {
+  id: ID! @unique
+  name: String!
+}
+
+type File {
+  id: ID! @unique
+}
+
+type Post {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  content: String!
+  file: [File!]!
+  group: Group
+}
+
+type Group {
+  id: ID! @unique
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  posts: [Post!]!
+}
