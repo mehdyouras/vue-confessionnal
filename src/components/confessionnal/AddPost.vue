@@ -43,7 +43,7 @@
       :show="success"
       variant="success"
     >
-      Votre confession a été envoyé avec succès
+      Votre confession a été envoyée avec succès
     </b-alert>
   </b-form>  
 </template>
