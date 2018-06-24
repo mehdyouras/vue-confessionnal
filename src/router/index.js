@@ -14,7 +14,7 @@ export default new Router({
       component: index,
     },
     {
-      path: '/confessionnal',
+      path: '/confessionnal/:id',
       name: 'confessionnal',
       component: confessionnal,
     },
