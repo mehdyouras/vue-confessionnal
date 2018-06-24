@@ -1,0 +1,14 @@
+import gql from 'graphql-tag';
+
+export default gql`
+  subscription($groupId: ID!) {
+    post(where: { node: { group: { id: $groupId} } } ) {
+      node{
+        id
+        createdAt
+        content
+      }
+    }
+  }
+`
+

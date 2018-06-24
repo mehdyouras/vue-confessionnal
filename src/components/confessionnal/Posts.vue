@@ -1,5 +1,8 @@
 <template>
-  <b-list-group flush>
+  <b-list-group 
+    flush
+    class="d-flex flex-column-reverse"
+  >
     <b-list-group-item 
       v-for="(post, index) in posts"
       :key="post.id"
@@ -26,6 +29,6 @@ export default {
       type: Array,
       required: true,
     }
-  }
+  },
 }
 </script>
