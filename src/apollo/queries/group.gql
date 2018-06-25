@@ -9,6 +9,10 @@ export default gql`
         id
         createdAt
         content
+        files {
+          id
+          url
+        }
       }
     }
   }

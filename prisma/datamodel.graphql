@@ -5,6 +5,8 @@ type User {
 
 type File {
   id: ID! @unique
+  url: String!
+  post: Post!
 }
 
 type Post {
@@ -12,7 +14,7 @@ type Post {
   createdAt: DateTime!
   updatedAt: DateTime!
   content: String!
-  file: [File!]!
+  files: [File!]!
   group: Group
 }
 

@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  mutation($groupId: ID!, $content: String!) {
+  mutation($groupId: ID!, $content: String!, $files: [FileCreateWithoutPostInput!]) {
     createPost(
       data: {
         group: {
@@ -10,6 +10,9 @@ export default gql`
           } 
         }
         content: $content
+        files: {
+          create: $files
+        }
       }
     ) {
       id
