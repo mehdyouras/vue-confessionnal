@@ -8,7 +8,7 @@
       :key="post.id"
     >
       <div>
-        <div>
+        <div class="mb-3">
           <b-badge 
             variant="primary"
           >
