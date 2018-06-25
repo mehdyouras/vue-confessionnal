@@ -1,8 +1,8 @@
 <template>
   <strong>
     <p>Partagez ce lien avec vos amis !</p>
-    <b-link>
-      http://confessionnal.be/confessionnal/{{ groupId }}
+    <b-link :href="'http://confessionnal.ouras.be/#/confessionnal/' + groupId">
+      http://confessionnal.ouras.be/#/confessionnal/{{ groupId }}
     </b-link>
   </strong>
 </template>
