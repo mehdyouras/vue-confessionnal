@@ -7,14 +7,20 @@
       v-for="(post, index) in posts"
       :key="post.id"
     >
-      <div class="d-flex align-items-center">
-        <p>
+      <div>
+        <div>
           <b-badge 
-            class="mr-4"
             variant="primary"
           >
             #{{ index + 1 }}
           </b-badge>
+          <b-badge
+            variant="secondary"
+          >
+            {{ humanDate(post.createdAt) }}
+          </b-badge>
+        </div>
+        <p>
           {{ post.content }}
         </p>
       </div>
@@ -40,5 +46,26 @@ export default {
       required: true,
     }
   },
+  methods: {
+    humanDate(timestamp, separator = ':') {
+      let time = new Date(timestamp);
+
+      let day = time.getDate();
+      let month = time.getMonth() + 1;
+      let year = time.getFullYear();
+
+      if(day.toString().length == 1) day = '0' + day;
+      if(month.toString().length == 1) month = '0' + month;
+
+      let hours = time.getHours();
+      let minutes = time.getMinutes();
+
+      if(hours.toString().length == 1) hours = '0' + hours;
+      if(minutes.toString().length == 1) minutes = '0' + minutes;
+
+      
+      return `${day}/${month}/${year} ${hours}${separator}${minutes}`;
+    }
+  }
 }
 </script>
