@@ -6,17 +6,27 @@
     <b-list-group-item 
       v-for="(post, index) in posts"
       :key="post.id"
-      class="d-flex align-items-center"
     >
-      <p>
-        <b-badge 
-          class="mr-4"
-          variant="primary"
-        >
-          #{{ index + 1 }}
-        </b-badge>
-        {{ post.content }}
-      </p>
+      <div class="d-flex align-items-center">
+        <p>
+          <b-badge 
+            class="mr-4"
+            variant="primary"
+          >
+            #{{ index + 1 }}
+          </b-badge>
+          {{ post.content }}
+        </p>
+      </div>
+      <div>
+        <b-img 
+          v-for="image in post.files"
+          :key="image.id"
+          :src="image.url"
+          fluid
+          alt="SkuSku"
+        />
+      </div>
     </b-list-group-item>
   </b-list-group>
 </template>

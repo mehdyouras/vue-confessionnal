@@ -12,16 +12,18 @@
         required
       />
     </b-form-group>
-    <!-- <b-form-group 
-      label="Joindre une image"
+    <b-form-group 
+      label="Joindre des images"
       label-for="conf-image"
     >
       <b-form-file 
         id="conf-image"
-        v-model="file" 
-        placeholder="Choisissez une image"
+        v-model="files" 
+        multiple
+        accept="image/*"
+        placeholder="Choisissez des images"
       />
-    </b-form-group> -->
+    </b-form-group>
     <b-button 
       class="w-100"
       type="submit" 
@@ -49,6 +51,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 import Spinner from '@/components/misc/Spinner';
 
 import CREATE_POST from '@/apollo/mutations/createPost.gql';
@@ -67,7 +71,7 @@ export default {
   data() {
     return {
       content: "",
-      file: null,
+      files: [],
       isLoading: false,
       success: false,
     }
@@ -75,16 +79,54 @@ export default {
   methods: {
     addPost() {
       this.isLoading = true;
-      this.$apollo.mutate({
-        mutation: CREATE_POST,
-        variables: {
-          content: this.content,
-          groupId: this.groupId,
-        },
-      }).then( () => {
-        this.isLoading = false;
-        this.success = true;
-        this.content = "";
+      
+      if(this.files.length) {
+        let uploadPromises = this.files.map((file) => {
+          return this.uploadFile(file);
+        })
+  
+        Promise.all(uploadPromises).then((data) => {
+          console.log(data);
+          let files = data.map(img => {
+            return { url: img.data.data.link };
+          });
+          this.$apollo.mutate({
+            mutation: CREATE_POST,
+            variables: {
+              content: this.content,
+              groupId: this.groupId,
+              files,
+            },
+          }).then( () => {
+            this.isLoading = false;
+            this.success = true;
+            this.content = "";
+          })
+        })
+      } else {
+        this.$apollo.mutate({
+            mutation: CREATE_POST,
+            variables: {
+              content: this.content,
+              groupId: this.groupId,
+            },
+          }).then( () => {
+            this.isLoading = false;
+            this.success = true;
+            this.content = "";
+          })
+      }
+
+
+    },
+    uploadFile(file) {
+      let fd = new FormData();
+      fd.append('image', file);
+      return axios({
+        method: 'post',
+        url: 'https://api.imgur.com/3/image',
+        headers: {'Authorization': 'Client-ID c85df53f63d7525'},
+        data: fd,
       })
     }
   }
