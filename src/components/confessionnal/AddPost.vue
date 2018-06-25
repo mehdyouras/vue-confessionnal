@@ -101,6 +101,7 @@ export default {
             this.isLoading = false;
             this.success = true;
             this.content = "";
+            this.files = [];
           })
         })
       } else {
